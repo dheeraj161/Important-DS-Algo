@@ -94,8 +94,10 @@ int main(){
 		cout<<"2. find an element "<<endl;
 		cout<<"3. delete an element "<<endl;
 		cout<<"4. print the tree inorder "<<endl;
+		
 		cout<<"0. exit"<<endl;
-		int option, data;cin>>option;
+		int option;cin>>option;
+		int data;
 		if(option==1){
 			cin>>data;
 			root = insert(root, data);
