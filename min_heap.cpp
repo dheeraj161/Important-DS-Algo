@@ -3,7 +3,7 @@ using namespace std;
 
 
 class minheap{
-	int heap[1000000];
+	int heap[1000];
 	int sz=0;
 public:
 	int parent(int i){return i/2;}
@@ -18,33 +18,40 @@ public:
 		shift_up(p);
 	}
 	void shift_down(int i){
-		if(i==1)return ;
-		int min_i=i;
 		int l=leftChild(i);
 		int r=rightChild(i);
-		if(l<=sz && heap[l]<heap[min_i]){
-			min_i=l;
+		if(l<=sz && heap[l]<heap[i]){
+			
+			swap(heap[l],heap[i]);
+			shift_down(l);
 		}
-		if(r<=sz && heap[r]<heap[min_i]){
-			min_i=r;
+		if(r<=sz && heap[r]<heap[i]){
+			
+			swap(heap[r],heap[i]);
+			shift_down(r);
 		}
-		if(min_i==i){
-			return ;
-		}
-		shift_down(min_i);
 	}
 	void insert(int a){
 		heap[++sz]=a;
 		shift_up(sz);
 	}
-	int top(){return heap[1];}
+	int top(){
+		if(sz==0){
+			return -1;
+		}
+		return heap[1];
+	}
 	int size(){return sz;}
 	void pop(){
+		if(sz==0){
+			return ;
+		}
 		int minimum=heap[1];
-		heap[1]=heap[sz-1];
+		heap[1]=heap[sz];
 		sz--;
 		shift_down(1);
 	}
+	
 };
 
 
@@ -56,10 +63,11 @@ int main(){
 		int x;cin>>x;
 		h.insert(x); //inserting element in the min heap
 	}
-	cout<<h.top()<<endl;
-	h.pop();
-	cout<<h.size()<<endl;
-
+	while(h.size()>0){
+		cout<<h.top()<<" ";
+		h.pop();
+	}
+	cout<<endl;
 
 	return 0;
 }
